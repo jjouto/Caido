@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caido - Animated Dark Vibe Website</title>
+    <style>
+        /* Global Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #101010;
+            color: #e0e0e0;
+            margin: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Added smooth scrolling */
+        }
+
+        h1, h2 {
+            color: #00ff88;
+            text-align: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 1em;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: #e0e0e0;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #00ff88;
+            text-shadow: 0 0 8px #00ff88;
+            transform: scale(1.1);
+        }
+
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #101010;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            border: 16px solid #101010;
+            border-top: 16px solid #00ff88;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+            text-align: center;
+            background: linear-gradient(135deg, #00ff88 20%, #1a1a1a);
+            color: #121212;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            animation: textGlow 2s ease-in-out infinite alternate;
+            position: relative;
+        }
+
+        .hero button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #00ff88;
+            color: #121212;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            border-radius: 5px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        .hero button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+        }
+
+        /* Keyframe Animations */
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88; }
+            100% { text-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* About Section with Slide-In Effect */
+        .about {
+            padding: 50px;
+            text-align: center;
+            background-color: #1a1a1a;
+            color: #00ff88;
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* Product Showcase with Hover Glow Effect */
+        .product-showcase {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 50px;
+            background-color: #121212;
+        }
+
+        .product-card {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 250px;
+            margin: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .product-card h3 {
+            color: #00ff88;
+            margin: 10px 0;
+        }
+
+        .product-card button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #00ff88;
+            color: #121212;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .product-card button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 50px;
+            background-color: #1a1a1a;
+            color: #00ff88;
+            text-align: center;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 80%;
+            max-width: 500px;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background-color: #00ff88;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .contact-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Welcome to Caido</h1>
+        <button>Shop Now</button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About Caido</h2>
+        <p>Caido offers the trendiest oversized T-shirts with unmatched style and quality.</p>
+    </section>
+
+    <!-- Product Showcase -->
+    <section id="products" class="product-showcase">
+        <div class="product-card">
+            <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/462564242_1293156581866536_6376941535362000609_n.png?stp=dst-png_s480x480&_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=67HSJoG8Ff4Q7kNvgGvv1bQ&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QHW2mj8gz3othkC7v6WNn0maot_AWep30-0eCq4sdIFXA&oe=6756BA4C" alt="Travis Scott">
+            <h3>Product 1</h3>
+            <h3>999</h3>
+            <button>Buy Now</button>
+        </div>
+        <div class="product-card">
+            <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/462551266_1227479538520429_5122309510099829509_n.png?stp=dst-png_s480x480&_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=ZAmb4k-vMpgQ7kNvgEZ4WL5&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QE1l5ufCBu-OOXHLE-cMfIAh0cfx16kw03uBEw5NxvNaA&oe=675690D9" alt="Weeknd">
+            <h3>Product 2</h3>
+            <h3>999</h3>
+            <button>Buy Now</button>
+        </div>
+        <div class="product-card">
+            <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/462568739_546039781363875_6768497681702806415_n.png?stp=dst-png_s480x480&_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=LwPz_KxSjzQQ7kNvgEhu_JX&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QGoiO8NvvfB1lO-BzmD-lpmp0bMgC6sRTFDlypBU1ovlg&oe=6756A6B8" alt="Hero">
+            <h3>Product 3</h3>
+            <h3>999</h3>
+            <button>Buy Now</button>
+        </div>
+        <div class="product-card">
+            <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/462354087_531637216472517_8094536085661037038_n.png?_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=cPCBlqI0vIEQ7kNvgFhRMig&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QFDn4Enn8Exwd0udmRCEs0ZDvwbOi62qgi-BdUrl8pDTQ&oe=6756B7D5" alt="God">
+            <h3>Product 4</h3>
+            <h3>999</h3>
+            <button>Buy Now</button>
+        </div>
+        <div class="product-card">
+            <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/462549521_431929303254226_1069673977810916639_n.png?_nc_cat=104&ccb=1-7&_nc_sid=0024fc&_nc_ohc=znxK_laxP5gQ7kNvgFixV88&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QG-0tZsEi1Jny7XpGTGJQYJ0aHONscJjR2t3ScAAyouvQ&oe=67569C28" alt="Product 5">
+            <h3>Product 5</h3>
+            <h3>999</h3>
+            <button>Buy Now</button>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <form class="contact-form" action="https://formspree.io/f/mwkyyogv" method="POST">
+            <input type="text" name="name" placeholder="Name" required><br>
+            <input type="email" name="email" placeholder="Email" required><br>
+            <textarea name="message" placeholder="Message" rows="4" required></textarea><br>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // Hide loading screen after page load
+        window.addEventListener('load', function() {
+            document.getElementById('loading-screen').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
+
+
